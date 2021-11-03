@@ -1,0 +1,218 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+  /* animation sets */
+/* move from / to  */
+
+.pt-page-moveFromLeft {
+	-webkit-animation: moveFromLeft .6s ease both;
+	animation: moveFromLeft .6s ease both;
+}
+.pt-page-moveFromRight {
+	-webkit-animation: moveFromRight .6s ease both;
+	animation: moveFromRight .6s ease both;
+}
+.pt-page-moveFromTop {
+	-webkit-animation: moveFromTop .6s ease both;
+	animation: moveFromTop .6s ease both;
+}
+.pt-page-moveFromBottom {
+	-webkit-animation: moveFromBottom .6s ease both;
+	animation: moveFromBottom .6s ease both;
+}
+
+
+/********************************* keyframes **************************************/
+/* move from / to  */
+
+@-webkit-keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); }
+}
+@keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+@-webkit-keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); }
+}
+@keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); transform: translateX(100%); }
+}
+@-webkit-keyframes moveFromTop {
+	from { -webkit-transform: translateY(-100%); }
+}
+@keyframes moveFromTop {
+	from { -webkit-transform: translateY(-100%); transform: translateY(-100%); }
+}
+@-webkit-keyframes moveFromBottom {
+	from { -webkit-transform: translateY(100%); }
+}
+@keyframes moveFromBottom {
+	from { -webkit-transform: translateY(100%); transform: translateY(100%); }
+}
+</style>
+<div class="container-fluid">
+  <div class="col-lg-12" style="margin-top: 40px; padding: 30px; border-radius: 8px; border-style: solid;">
+    <div class="row">
+      <div class="col-md-3"><a href="#" id="gettingStarted">시작하기</a></div>
+      <div class="col-md-3"><a href="#" id="dataUpload">데이터 등록</a></div>
+      <div class="col-md-3"><a href="#" id="dataAnalysis">데이터 분석 실행</a></div>
+      <div class="col-md-3"><a href="#" id="dataAnalysisResult">데이터 분석 결과</a></div>
+    </div>
+  </div>
+</div>
+<div id="readyPage" class="jumbotron jumbotron-fluid">
+  <div class="container" style="text-align: center;">
+    <h1 class="display-4">cafe24 앱 사용자 가이드</h1>
+    <p class="lead">상품, 고객, 주문 데이터의 통계와 분석으로 고객 관리와 마케팅을 쉽게 관리하세요.<br>Ai 기반의 분석을 통해 상품별 추천 상품과 고객별 추천 상품으로 고객이 원하는 상품을 보여줍니다.</p><br>
+    <img src="https://picsum.photos/850/250?15" alt="Image" class="img-responsive" style="margin: auto;"/>
+  </div>
+</div>
+<div class="container-fluid" id="gettingStartedPage">
+  <div class="row">
+    <div class="col-lg-8"><h2>시작 화면</h2><img src="https://picsum.photos/850/550?3" alt="Image" class="img-responsive"/><br><img src="https://picsum.photos/850/550?5" alt="Image" class="img-responsive"/></div>
+    <div class="col-lg-4" style="padding-right: 50px;"><h2>시작 화면 설명</h2><br>
+      <p>sb-admin-2.js, app.component.js, app.route.js, 3d_scatter_knime.js, global-constant.js, contacts-ctrl.js, home.component.js, home.route.js, prcenter-ctrl.js, prcenter-view-ctrl.js, meeting-daily-modal-ctrl.js, meeting-detail-ctrl.js,
+         meeting-detail-modal-ctrl.js, meeting-detail2-ctrl.js, meeting-room-api-srv.js, meeting-room-ctrl.js, meeting-roomimage-modal-ctrl.js, my-reserve-list-ctrl.js, reserve.component.js, reserve.route.js, global-fn.js, index.config.js, 
+         index.constants.js, index.module.js, index.route.js, index.run.js, slick.min.js, sz-common-fnc.js, vault.js, application.route.js, EAP-business-edit-ctrl.js, EAP-business-list-ctrl.js, EAP-counsel-edit-ctrl.js, EAP-counsel-list-ctrl.js, 
+         expert-edit-ctrl.js, expert-list-ctrl.js, mng-calendar-ctrl.js, mng-calendar.route.js, boardmng-api-srv.js, boardmng-detail-ctrl.js, boardmng-edit-ctrl.js, boardmng-list-ctrl.js, boardmng.route.js, column-attr-reorder-ctrl.js, 
+         column-attr-setup-ctrl.js, bbs-master-detail-ctrl.js, bbs-master-edit-ctrl.js, bbs-master-list-ctrl.js, board.route.js, h0102-api-srv.js, h0102-detail-ctrl.js, h0102-edit-ctrl.js, h0102-list-ctrl.js, h0103-api-srv.js, 
+         h0103-detail-ctrl.js, h0103-edit-ctrl.js, h0103-list-ctrl.js, notice-board-ctrl.js, notice-board-detail-ctrl.js, notice-board-edit-ctrl.js, popup-list-ctrl.js, cafe24.route.js, chart-list-ctrl.js, customer-detail-ctrl.js, 
+         customer-list-ctrl.js, log-detail-ctrl.js, log-list-ctrl.js, loginbycafe24-api-srv.js, loginbycafe24.component.js, order-detail-ctrl.js, order-list-ctrl.js, payment-list-ctrl.js, payment-result-ctrl.js, product-detail-ctrl.js, 
+         product-list-ctrl.js, subscribe-customer-detail-ctrl.js, subscribe-customer-list-ctrl.js, subscribe-detail-ctrl.js, subscribe-list-ctrl.js, subscribe-prd-detail-ctrl.js, subscribe-prd-list-ctrl.js, calendar-list-ctrl.js, 
+         calendar-modal-view-ctrl.js, calendar.route.js, campaign.route.js, group-list-ctrl.js, happycall-edit-ctrl.js, monitoring-detail-ctrl.js, monitoring-list-ctrl.js, single-edit-ctrl.js, single-list-ctrl.js, campaign-edit-ctrl.js, 
+         campaign-email-edit-ctrl.js, campaign-email-management-ctrl.js, campaign-email-management-tab1-ctrl.js, campaign-email-management-tab2-ctrl.js, campaign-list-ctrl.js, campaign.route.js, campaignimpl-detail-ctrl.js, 
+         campaignimpl-list-ctrl.js, form-edit-ctrl.js, form-email-edit-ctrl.js, form-email-list-ctrl.js, form-list-ctrl.js, form-sms-edit-ctrl.js, form-sms-list-ctrl.js, group-list-ctrl.js, chart-ctrl.js, chatting.route.js, h0201-api-srv.js, 
+         h0201-chatlist-ctrl.js, h0201-roomdetail-ctrl.js, h0201-roomedit-ctrl.js, h0201-roomlist-ctrl.js, customer-add-batch-ctrl.js, customer-detail-tab1-ctrl.js, customer-detail2-ctrl.js, customer-detail2-tab1-ctrl.js, 
+         customer-detail2-tab2-ctrl.js, customer-detail2-tab2-modal-ctrl.js, customer-detail2-tab3-ctrl.js, customer-detail2-tab4-ctrl.js, customer-edit-ctrl.js, customer-edit-tab1-ctrl.js, customer-edit-tab2-ctrl.js, 
+         customer-edit-tab3-ctrl.js, customer-edit-tab4-ctrl.js, customer-edit-tab5-ctrl.js, customer-edit-tab6-ctrl.js, customer-list-ctrl.js, customer.route.js, cvsreserv-edit-ctrl.js, cvsreserv-list-ctrl.js, 
+         cvsreserv-view-ctrl.js, cvsreserv-view-list-ctrl.js, cvsreserv.route.js, cvssales-detail-ctrl.js, cvssales-edit-ctrl.js, cvssales-list-ctrl.js, cvssales.route.js, cvssalesgen-edit-ctrl.js, cvssalesgen-list-ctrl.js, 
+         cvssalesorder-list-ctrl.js, cvssalesstock-edit-ctrl.js, cvssalesstock-list-ctrl.js, cvssalestkt-edit-ctrl.js, cvssalestkt-list-ctrl.js, cafe24dashboard-ctrl.js, dashboard-ctrl.js, dashboard.route.js, gck-dashboard-ctrl.js, 
+         survey-dashboard-ctrl.js, analysis-action-compare-ctrl.js, analysis-cluster-compare-ctrl.js, analysis-cluster-compare-result.js, analysis-cluster-three-plot-ctrl.js, analysis-customerrank-list-ctrl.js, 
+         analysis-customerrecommend-detail-ctrl.js, analysis-customerrecommend-list-ctrl.js, analysis-execute-ctrl.js, analysis-realtimerecommend-temperature.js, analysis-recommend-detail-ctrl.js, analysis-recommend-list-ctrl.js, 
+         analysis-recommend-result-ctrl.js, analysis-result-ctrl.js, analysis-rfmcentroids-edit-ctrl.js, analysis-rfmcentroids-list-ctrl.js, analysis-salestrend-temperature.js, da-customer-detail-ctrl.js, da-customer-list-ctrl.js, 
+         da-goods-detail-ctrl.js, da-goods-list-ctrl.js, da-sales-detail-ctrl.js, da-sales-list-ctrl.js,</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="dataUploadPage">
+  <div class="row">
+    <div class="col-lg-8"><h2>데이터 등록 화면</h2><img src="https://picsum.photos/850/550?6" alt="Image" class="img-responsive"/><br><img src="https://picsum.photos/850/550?7" alt="Image" class="img-responsive"/></div>
+    <div class="col-lg-4" style="padding-right: 50px;"><h2>데이터 등록 화면 설명</h2><br>
+      <p>sb-admin-2.js, app.component.js, app.route.js, 3d_scatter_knime.js, global-constant.js, contacts-ctrl.js, home.component.js, home.route.js, prcenter-ctrl.js, prcenter-view-ctrl.js, meeting-daily-modal-ctrl.js, meeting-detail-ctrl.js,
+         meeting-detail-modal-ctrl.js, meeting-detail2-ctrl.js, meeting-room-api-srv.js, meeting-room-ctrl.js, meeting-roomimage-modal-ctrl.js, my-reserve-list-ctrl.js, reserve.component.js, reserve.route.js, global-fn.js, index.config.js, 
+         index.constants.js, index.module.js, index.route.js, index.run.js, slick.min.js, sz-common-fnc.js, vault.js, application.route.js, EAP-business-edit-ctrl.js, EAP-business-list-ctrl.js, EAP-counsel-edit-ctrl.js, EAP-counsel-list-ctrl.js, 
+         expert-edit-ctrl.js, expert-list-ctrl.js, mng-calendar-ctrl.js, mng-calendar.route.js, boardmng-api-srv.js, boardmng-detail-ctrl.js, boardmng-edit-ctrl.js, boardmng-list-ctrl.js, boardmng.route.js, column-attr-reorder-ctrl.js, 
+         column-attr-setup-ctrl.js, bbs-master-detail-ctrl.js, bbs-master-edit-ctrl.js, bbs-master-list-ctrl.js, board.route.js, h0102-api-srv.js, h0102-detail-ctrl.js, h0102-edit-ctrl.js, h0102-list-ctrl.js, h0103-api-srv.js, 
+         h0103-detail-ctrl.js, h0103-edit-ctrl.js, h0103-list-ctrl.js, notice-board-ctrl.js, notice-board-detail-ctrl.js, notice-board-edit-ctrl.js, popup-list-ctrl.js, cafe24.route.js, chart-list-ctrl.js, customer-detail-ctrl.js, 
+         customer-list-ctrl.js, log-detail-ctrl.js, log-list-ctrl.js, loginbycafe24-api-srv.js, loginbycafe24.component.js, order-detail-ctrl.js, order-list-ctrl.js, payment-list-ctrl.js, payment-result-ctrl.js, product-detail-ctrl.js, 
+         product-list-ctrl.js, subscribe-customer-detail-ctrl.js, subscribe-customer-list-ctrl.js, subscribe-detail-ctrl.js, subscribe-list-ctrl.js, subscribe-prd-detail-ctrl.js, subscribe-prd-list-ctrl.js, calendar-list-ctrl.js, 
+         calendar-modal-view-ctrl.js, calendar.route.js, campaign.route.js, group-list-ctrl.js, happycall-edit-ctrl.js, monitoring-detail-ctrl.js, monitoring-list-ctrl.js, single-edit-ctrl.js, single-list-ctrl.js, campaign-edit-ctrl.js, 
+         campaign-email-edit-ctrl.js, campaign-email-management-ctrl.js, campaign-email-management-tab1-ctrl.js, campaign-email-management-tab2-ctrl.js, campaign-list-ctrl.js, campaign.route.js, campaignimpl-detail-ctrl.js, 
+         campaignimpl-list-ctrl.js, form-edit-ctrl.js, form-email-edit-ctrl.js, form-email-list-ctrl.js, form-list-ctrl.js, form-sms-edit-ctrl.js, form-sms-list-ctrl.js, group-list-ctrl.js, chart-ctrl.js, chatting.route.js, h0201-api-srv.js, 
+         h0201-chatlist-ctrl.js, h0201-roomdetail-ctrl.js, h0201-roomedit-ctrl.js, h0201-roomlist-ctrl.js, customer-add-batch-ctrl.js, customer-detail-tab1-ctrl.js, customer-detail2-ctrl.js, customer-detail2-tab1-ctrl.js, 
+         customer-detail2-tab2-ctrl.js, customer-detail2-tab2-modal-ctrl.js, customer-detail2-tab3-ctrl.js, customer-detail2-tab4-ctrl.js, customer-edit-ctrl.js, customer-edit-tab1-ctrl.js, customer-edit-tab2-ctrl.js, 
+         customer-edit-tab3-ctrl.js, customer-edit-tab4-ctrl.js, customer-edit-tab5-ctrl.js, customer-edit-tab6-ctrl.js, customer-list-ctrl.js, customer.route.js, cvsreserv-edit-ctrl.js, cvsreserv-list-ctrl.js, 
+         cvsreserv-view-ctrl.js, cvsreserv-view-list-ctrl.js, cvsreserv.route.js, cvssales-detail-ctrl.js, cvssales-edit-ctrl.js, cvssales-list-ctrl.js, cvssales.route.js, cvssalesgen-edit-ctrl.js, cvssalesgen-list-ctrl.js, 
+         cvssalesorder-list-ctrl.js, cvssalesstock-edit-ctrl.js, cvssalesstock-list-ctrl.js, cvssalestkt-edit-ctrl.js, cvssalestkt-list-ctrl.js, cafe24dashboard-ctrl.js, dashboard-ctrl.js, dashboard.route.js, gck-dashboard-ctrl.js, 
+         survey-dashboard-ctrl.js, analysis-action-compare-ctrl.js, analysis-cluster-compare-ctrl.js, analysis-cluster-compare-result.js, analysis-cluster-three-plot-ctrl.js, analysis-customerrank-list-ctrl.js, 
+         analysis-customerrecommend-detail-ctrl.js, analysis-customerrecommend-list-ctrl.js, analysis-execute-ctrl.js, analysis-realtimerecommend-temperature.js, analysis-recommend-detail-ctrl.js, analysis-recommend-list-ctrl.js, 
+         analysis-recommend-result-ctrl.js, analysis-result-ctrl.js, analysis-rfmcentroids-edit-ctrl.js, analysis-rfmcentroids-list-ctrl.js, analysis-salestrend-temperature.js, da-customer-detail-ctrl.js, da-customer-list-ctrl.js, 
+         da-goods-detail-ctrl.js, da-goods-list-ctrl.js, da-sales-detail-ctrl.js, da-sales-list-ctrl.js,</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="dataAnalysisPage">
+  <div class="row">
+    <div class="col-lg-8"><h2>데이터 분석 실행 화면</h2><img src="https://picsum.photos/850/550?8" alt="Image" class="img-responsive"/><br><img src="https://picsum.photos/850/550?9" alt="Image" class="img-responsive"/></div>
+    <div class="col-lg-4" style="padding-right: 50px;"><h2>데이터 분석 실행 화면 설명</h2><br>
+      <p>sb-admin-2.js, app.component.js, app.route.js, 3d_scatter_knime.js, global-constant.js, contacts-ctrl.js, home.component.js, home.route.js, prcenter-ctrl.js, prcenter-view-ctrl.js, meeting-daily-modal-ctrl.js, meeting-detail-ctrl.js,
+         meeting-detail-modal-ctrl.js, meeting-detail2-ctrl.js, meeting-room-api-srv.js, meeting-room-ctrl.js, meeting-roomimage-modal-ctrl.js, my-reserve-list-ctrl.js, reserve.component.js, reserve.route.js, global-fn.js, index.config.js, 
+         index.constants.js, index.module.js, index.route.js, index.run.js, slick.min.js, sz-common-fnc.js, vault.js, application.route.js, EAP-business-edit-ctrl.js, EAP-business-list-ctrl.js, EAP-counsel-edit-ctrl.js, EAP-counsel-list-ctrl.js, 
+         expert-edit-ctrl.js, expert-list-ctrl.js, mng-calendar-ctrl.js, mng-calendar.route.js, boardmng-api-srv.js, boardmng-detail-ctrl.js, boardmng-edit-ctrl.js, boardmng-list-ctrl.js, boardmng.route.js, column-attr-reorder-ctrl.js, 
+         column-attr-setup-ctrl.js, bbs-master-detail-ctrl.js, bbs-master-edit-ctrl.js, bbs-master-list-ctrl.js, board.route.js, h0102-api-srv.js, h0102-detail-ctrl.js, h0102-edit-ctrl.js, h0102-list-ctrl.js, h0103-api-srv.js, 
+         h0103-detail-ctrl.js, h0103-edit-ctrl.js, h0103-list-ctrl.js, notice-board-ctrl.js, notice-board-detail-ctrl.js, notice-board-edit-ctrl.js, popup-list-ctrl.js, cafe24.route.js, chart-list-ctrl.js, customer-detail-ctrl.js, 
+         customer-list-ctrl.js, log-detail-ctrl.js, log-list-ctrl.js, loginbycafe24-api-srv.js, loginbycafe24.component.js, order-detail-ctrl.js, order-list-ctrl.js, payment-list-ctrl.js, payment-result-ctrl.js, product-detail-ctrl.js, 
+         product-list-ctrl.js, subscribe-customer-detail-ctrl.js, subscribe-customer-list-ctrl.js, subscribe-detail-ctrl.js, subscribe-list-ctrl.js, subscribe-prd-detail-ctrl.js, subscribe-prd-list-ctrl.js, calendar-list-ctrl.js, 
+         calendar-modal-view-ctrl.js, calendar.route.js, campaign.route.js, group-list-ctrl.js, happycall-edit-ctrl.js, monitoring-detail-ctrl.js, monitoring-list-ctrl.js, single-edit-ctrl.js, single-list-ctrl.js, campaign-edit-ctrl.js, 
+         campaign-email-edit-ctrl.js, campaign-email-management-ctrl.js, campaign-email-management-tab1-ctrl.js, campaign-email-management-tab2-ctrl.js, campaign-list-ctrl.js, campaign.route.js, campaignimpl-detail-ctrl.js, 
+         campaignimpl-list-ctrl.js, form-edit-ctrl.js, form-email-edit-ctrl.js, form-email-list-ctrl.js, form-list-ctrl.js, form-sms-edit-ctrl.js, form-sms-list-ctrl.js, group-list-ctrl.js, chart-ctrl.js, chatting.route.js, h0201-api-srv.js, 
+         h0201-chatlist-ctrl.js, h0201-roomdetail-ctrl.js, h0201-roomedit-ctrl.js, h0201-roomlist-ctrl.js, customer-add-batch-ctrl.js, customer-detail-tab1-ctrl.js, customer-detail2-ctrl.js, customer-detail2-tab1-ctrl.js, 
+         customer-detail2-tab2-ctrl.js, customer-detail2-tab2-modal-ctrl.js, customer-detail2-tab3-ctrl.js, customer-detail2-tab4-ctrl.js, customer-edit-ctrl.js, customer-edit-tab1-ctrl.js, customer-edit-tab2-ctrl.js, 
+         customer-edit-tab3-ctrl.js, customer-edit-tab4-ctrl.js, customer-edit-tab5-ctrl.js, customer-edit-tab6-ctrl.js, customer-list-ctrl.js, customer.route.js, cvsreserv-edit-ctrl.js, cvsreserv-list-ctrl.js, 
+         cvsreserv-view-ctrl.js, cvsreserv-view-list-ctrl.js, cvsreserv.route.js, cvssales-detail-ctrl.js, cvssales-edit-ctrl.js, cvssales-list-ctrl.js, cvssales.route.js, cvssalesgen-edit-ctrl.js, cvssalesgen-list-ctrl.js, 
+         cvssalesorder-list-ctrl.js, cvssalesstock-edit-ctrl.js, cvssalesstock-list-ctrl.js, cvssalestkt-edit-ctrl.js, cvssalestkt-list-ctrl.js, cafe24dashboard-ctrl.js, dashboard-ctrl.js, dashboard.route.js, gck-dashboard-ctrl.js, 
+         survey-dashboard-ctrl.js, analysis-action-compare-ctrl.js, analysis-cluster-compare-ctrl.js, analysis-cluster-compare-result.js, analysis-cluster-three-plot-ctrl.js, analysis-customerrank-list-ctrl.js, 
+         analysis-customerrecommend-detail-ctrl.js, analysis-customerrecommend-list-ctrl.js, analysis-execute-ctrl.js, analysis-realtimerecommend-temperature.js, analysis-recommend-detail-ctrl.js, analysis-recommend-list-ctrl.js, 
+         analysis-recommend-result-ctrl.js, analysis-result-ctrl.js, analysis-rfmcentroids-edit-ctrl.js, analysis-rfmcentroids-list-ctrl.js, analysis-salestrend-temperature.js, da-customer-detail-ctrl.js, da-customer-list-ctrl.js, 
+         da-goods-detail-ctrl.js, da-goods-list-ctrl.js, da-sales-detail-ctrl.js, da-sales-list-ctrl.js,</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="dataAnalysisResultPage">
+  <div class="row">
+    <div class="col-lg-8"><h2>데이터 분석 결과 화면</h2><img src="https://picsum.photos/850/550?1" alt="Image" class="img-responsive"/><br><img src="https://picsum.photos/850/550?2" alt="Image" class="img-responsive"/></div>
+    <div class="col-lg-4" style="padding-right: 50px;"><h2>데이터 분석 결과 화면 설명</h2><br>
+      <p>sb-admin-2.js, app.component.js, app.route.js, 3d_scatter_knime.js, global-constant.js, contacts-ctrl.js, home.component.js, home.route.js, prcenter-ctrl.js, prcenter-view-ctrl.js, meeting-daily-modal-ctrl.js, meeting-detail-ctrl.js,
+         meeting-detail-modal-ctrl.js, meeting-detail2-ctrl.js, meeting-room-api-srv.js, meeting-room-ctrl.js, meeting-roomimage-modal-ctrl.js, my-reserve-list-ctrl.js, reserve.component.js, reserve.route.js, global-fn.js, index.config.js, 
+         index.constants.js, index.module.js, index.route.js, index.run.js, slick.min.js, sz-common-fnc.js, vault.js, application.route.js, EAP-business-edit-ctrl.js, EAP-business-list-ctrl.js, EAP-counsel-edit-ctrl.js, EAP-counsel-list-ctrl.js, 
+         expert-edit-ctrl.js, expert-list-ctrl.js, mng-calendar-ctrl.js, mng-calendar.route.js, boardmng-api-srv.js, boardmng-detail-ctrl.js, boardmng-edit-ctrl.js, boardmng-list-ctrl.js, boardmng.route.js, column-attr-reorder-ctrl.js, 
+         column-attr-setup-ctrl.js, bbs-master-detail-ctrl.js, bbs-master-edit-ctrl.js, bbs-master-list-ctrl.js, board.route.js, h0102-api-srv.js, h0102-detail-ctrl.js, h0102-edit-ctrl.js, h0102-list-ctrl.js, h0103-api-srv.js, 
+         h0103-detail-ctrl.js, h0103-edit-ctrl.js, h0103-list-ctrl.js, notice-board-ctrl.js, notice-board-detail-ctrl.js, notice-board-edit-ctrl.js, popup-list-ctrl.js, cafe24.route.js, chart-list-ctrl.js, customer-detail-ctrl.js, 
+         customer-list-ctrl.js, log-detail-ctrl.js, log-list-ctrl.js, loginbycafe24-api-srv.js, loginbycafe24.component.js, order-detail-ctrl.js, order-list-ctrl.js, payment-list-ctrl.js, payment-result-ctrl.js, product-detail-ctrl.js, 
+         product-list-ctrl.js, subscribe-customer-detail-ctrl.js, subscribe-customer-list-ctrl.js, subscribe-detail-ctrl.js, subscribe-list-ctrl.js, subscribe-prd-detail-ctrl.js, subscribe-prd-list-ctrl.js, calendar-list-ctrl.js, 
+         calendar-modal-view-ctrl.js, calendar.route.js, campaign.route.js, group-list-ctrl.js, happycall-edit-ctrl.js, monitoring-detail-ctrl.js, monitoring-list-ctrl.js, single-edit-ctrl.js, single-list-ctrl.js, campaign-edit-ctrl.js, 
+         campaign-email-edit-ctrl.js, campaign-email-management-ctrl.js, campaign-email-management-tab1-ctrl.js, campaign-email-management-tab2-ctrl.js, campaign-list-ctrl.js, campaign.route.js, campaignimpl-detail-ctrl.js, 
+         campaignimpl-list-ctrl.js, form-edit-ctrl.js, form-email-edit-ctrl.js, form-email-list-ctrl.js, form-list-ctrl.js, form-sms-edit-ctrl.js, form-sms-list-ctrl.js, group-list-ctrl.js, chart-ctrl.js, chatting.route.js, h0201-api-srv.js, 
+         h0201-chatlist-ctrl.js, h0201-roomdetail-ctrl.js, h0201-roomedit-ctrl.js, h0201-roomlist-ctrl.js, customer-add-batch-ctrl.js, customer-detail-tab1-ctrl.js, customer-detail2-ctrl.js, customer-detail2-tab1-ctrl.js, 
+         customer-detail2-tab2-ctrl.js, customer-detail2-tab2-modal-ctrl.js, customer-detail2-tab3-ctrl.js, customer-detail2-tab4-ctrl.js, customer-edit-ctrl.js, customer-edit-tab1-ctrl.js, customer-edit-tab2-ctrl.js, 
+         customer-edit-tab3-ctrl.js, customer-edit-tab4-ctrl.js, customer-edit-tab5-ctrl.js, customer-edit-tab6-ctrl.js, customer-list-ctrl.js, customer.route.js, cvsreserv-edit-ctrl.js, cvsreserv-list-ctrl.js, 
+         cvsreserv-view-ctrl.js, cvsreserv-view-list-ctrl.js, cvsreserv.route.js, cvssales-detail-ctrl.js, cvssales-edit-ctrl.js, cvssales-list-ctrl.js, cvssales.route.js, cvssalesgen-edit-ctrl.js, cvssalesgen-list-ctrl.js, 
+         cvssalesorder-list-ctrl.js, cvssalesstock-edit-ctrl.js, cvssalesstock-list-ctrl.js, cvssalestkt-edit-ctrl.js, cvssalestkt-list-ctrl.js, cafe24dashboard-ctrl.js, dashboard-ctrl.js, dashboard.route.js, gck-dashboard-ctrl.js, 
+         survey-dashboard-ctrl.js, analysis-action-compare-ctrl.js, analysis-cluster-compare-ctrl.js, analysis-cluster-compare-result.js, analysis-cluster-three-plot-ctrl.js, analysis-customerrank-list-ctrl.js, 
+         analysis-customerrecommend-detail-ctrl.js, analysis-customerrecommend-list-ctrl.js, analysis-execute-ctrl.js, analysis-realtimerecommend-temperature.js, analysis-recommend-detail-ctrl.js, analysis-recommend-list-ctrl.js, 
+         analysis-recommend-result-ctrl.js, analysis-result-ctrl.js, analysis-rfmcentroids-edit-ctrl.js, analysis-rfmcentroids-list-ctrl.js, analysis-salestrend-temperature.js, da-customer-detail-ctrl.js, da-customer-list-ctrl.js, 
+         da-goods-detail-ctrl.js, da-goods-list-ctrl.js, da-sales-detail-ctrl.js, da-sales-list-ctrl.js,</p>
+    </div>
+  </div>
+</div>
+<script>
+  readyPage();
+  $('#gettingStarted').on('click', function () {
+    readyPage();
+    $('#readyPage').hide();
+    $('#gettingStartedPage').show();
+    $('#gettingStartedPage').addClass('pt-page-moveFromLeft');
+  });
+  $('#dataUpload').on('click', function () {
+    readyPage();
+    $('#readyPage').hide();
+    $('#dataUploadPage').show();
+    $('#dataUploadPage').addClass('pt-page-moveFromRight');
+  });
+  $('#dataAnalysis').on('click', function () {
+    readyPage();
+    $('#readyPage').hide();
+    $('#dataAnalysisPage').show();
+    $('#dataAnalysisPage').addClass('pt-page-moveFromBottom');
+  });
+  $('#dataAnalysisResult').on('click', function () {
+    readyPage();
+    $('#readyPage').hide();
+    $('#dataAnalysisResultPage').show();
+    $('#dataAnalysisResultPage').addClass('pt-page-moveFromTop');
+  });
+  function readyPage() {
+    $('#gettingStartedPage').hide();
+    $('#dataUploadPage').hide();
+    $('#dataAnalysisPage').hide();
+    $('#dataAnalysisResultPage').hide();
+  }
+</script>

@@ -1,0 +1,834 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-2.3.0.min.js'></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <style>
+/*     .chart{
+      padding: 10px;
+      border-radius: 15px;
+      margin: 10px;
+      box-shadow: 1px 1px 15px 7px rgba(33,33,33,.2);
+    } */
+
+    .chartTitle{
+      text-align: center;
+    }
+
+  </style>
+<body>
+ 
+
+  <div class="page page-footable" ng-controller="AnalysisClusterThreePlotCtrl2 as vc">
+    <!-- page header -->
+    <div class="row row-header">
+      <div class="col-lg-12">
+        <div class="page-header">대쉬보드 <select-data-group code-changed="vc.reloadAll"></select-data-group>
+        </div>
+      </div>
+    </div>
+
+    <!-- page content -->
+    <div class="pagecontent">
+      <div class="row">
+        <div class="dataloader" ng-show="vc.dataloader"></div>
+      </div>
+      <!-- javascript 시각화 -->
+      <!-- first row -->
+      <div class="row" style="margin-bottom: 10px;">
+
+        
+          <div id="1"></div>
+          
+          <br>
+
+
+
+   
+         
+          <div id="2"></div>
+
+      </div><!-- first rows -->
+
+      <div class="row" style="margin-bottom: 10px;">
+
+        <!-- RFM Cluster 3D -->
+
+
+          <div id="3"></div>
+          <br>
+
+      </div>
+
+
+
+      <div class="row" style="margin-bottom: 10px;">
+
+
+
+          <div id="4"></div>
+          <br>
+          <div id="5"></div>
+          <br>
+     
+      </div>
+
+      <div class="row" style="margin-bottom: 10px;">
+
+
+        
+        <div id="annualSalesBar"></div>
+        <br>
+        <div id="quaterSalesBar"></div>
+        <br>
+   
+     </div>
+
+      <div class="row" style="margin-bottom: 10px;">
+
+
+        <div id="clientScore"></div>
+        <br>
+        <div id="clientLevel"></div>
+        <br>
+        <div id="clientRank"></div>
+        <br>
+  
+    </div>
+
+
+
+
+
+
+    </div>
+
+
+    <!-- /page content -->
+  </div>
+</body>
+<script>
+graph1();
+graph2();
+graph3();
+graph4();
+graph5();
+drawQuarterSalesBar();
+drawAnnualSalesBar();
+drawBulletGauge();
+drawSocreGauge();
+drawClientLevel();
+    //고객사 스코어 산정 기준에 따라 기본 스코어 표기//사용자 스코어 기준설정을 통해 가중치 설정시 기본스코어, 사용자 스코어 2가지 결과 표시
+    function drawSocreGauge() {
+      var data = [
+        {
+          domain: { x: [0, 1], y: [0, 1] },
+          value: 78,
+          type: "indicator",
+          mode: "gauge+number",
+          delta: { reference: 80 },
+          gauge: { bar: {color : 'rgba(106,121,227,.8)'},
+                  axis: { range: [0, 100] } }
+        }
+      ];
+      
+      var layout = { 
+        title: 'Score',
+        height: 372,
+        width: 658,
+      };
+      
+      Plotly.newPlot('clientScore', data, layout, {staticPlot: true});
+    }
+  	
+    
+    //고객사 등급 상동
+    function drawClientLevel() {
+
+      var data = [
+         { type: 'category',
+          x: [0], y:[0],
+            marker: {size: 10, color:'rgba(15,31,40,1)'},
+            showlegend: false,
+            }, 
+        {
+        type: 'pie',
+        showlegend: false,
+        hole: 0.6,
+        rotation: 90,
+        values: [100 / 6, 100 / 6, 100 / 6, 100 / 6, 100 / 6, 100 / 6, 100],
+        text: ["0", "1", "2", "3", "4", "5", ""],
+        direction: "clockwise",
+        textinfo: "text",
+        textposition: "inside",
+        textcolor : 'rgb(79,95,201)',
+        marker: {
+          colors: ["rgba(106,121,227, 0.8)", "rgba(106,121,227, 0.65)", "rgba(106,121,227, 0.5)", "rgba(106,121,227, 0.4)", "rgba(106,121,227, 0.25)", "rgba(106,121,227, 0.15)", "white"]
+        },
+        //labels: ["0-10", "10-50", "50-200", "200-500", "500-2000", ""],
+        hoverinfo: "skip"
+      }];
+
+      //화살표 설정.. level 값이 등급 점수
+      // 화살표 하나더 추가 할 가능성 유
+      /* var level = 3.5;
+      var degrees = 180-(level-1)*45;
+
+      var radians = degrees * Math.PI / 180;
+      var x = 0.5 * Math.cos(radians);
+      var y = 0.5 * Math.sin(radians);
+      var mainPath = 'M -.0 -0.035 L .0 0.035 L ',
+      pathX = String(x),
+      space = ' ',
+      pathY = String(y),
+      pathEnd = ' Z';
+      var path = mainPath.concat(pathX,space,pathY,pathEnd);
+ */
+      // needle
+      var degrees = 50, radius = .9
+      var radians = degrees * Math.PI / 180
+      var x = -1 * radius * Math.cos(radians) * 3.5;
+      var y = radius * Math.sin(radians)
+      var layout = {
+        title: '고객사 등급',
+        height: 372,
+        width: 658,
+        shapes: [{
+        type: 'line',
+        x0: 0,
+        y0: 0.04,
+        x1: 0,
+        y1: 0.45,
+        line: {
+          color:'rgba(39,59,74,1)',
+          width: 3
+        }
+        },
+        {
+        type: 'line',
+        x0: 0.016,
+        y0: 0.04,
+        x1: 0.18,
+        y1: 0.18,
+        line: {
+          color:'rgba(198,231,255,1)',
+          width: 3
+        }
+        },
+        /* {
+        type: 'line',
+        x0: 0.49,
+        y0: 0.50,
+        x1: 0.51,
+        y1: 0.50,
+        line: {
+          color:'rgba(39,59,74,1)',
+          width: 5
+        }
+        } */],
+          xaxis: {type:'category', zeroline:false, showticklabels:false,
+            showgrid: false, range: [-1, 1]},
+          yaxis: {type:'category', zeroline:false, showticklabels:false,
+            showgrid: false, range: [-1, 1]}
+      };
+
+      
+
+      Plotly.newPlot('clientLevel', data, layout, {staticPlot: true});
+    }
+
+
+
+    //고객사 순위 == db에서 조회
+    function drawBulletGauge() {
+      var data = [
+        {
+          type: "indicator",
+          mode: "gauge",
+          gauge: { bar: {color: 'rgba(106,121,227, 0.8)'},shape: "bullet" },
+          delta: { reference: 300 },
+          value: 220,
+          domain: { x: [0, 1], y: [0, 1] },
+          text: '220위 / 500'
+        }
+      ];
+      
+      var layout = { 
+        title: '고객사 순위',
+        height: 372,
+        width: 658,
+      };
+      
+      Plotly.newPlot('clientRank', data, layout, {staticPlot: true});
+
+    }
+
+   //해당연도를 제외한 최근 3년 매출액 및 년도별 미수금 그래프 (단위: 만원)
+   function drawAnnualSalesBar() {
+      var xData = ['2018년', '2019년', '2020년'];
+                
+
+      var yValue = [107, 115, 123];
+      var yValue2 = [15, 12, 13];
+      var yValue3 = [107,15,115,12,123,13];
+      //var yValue3 = [2, 2, 3.1, 4.3];
+      //var textList = ['107', '15', '115', '12', '123', '13'];
+      //var yData = [80, 6, 80, 6, 80, 6];
+      var trace1 = {
+        x: xData,
+        y: yValue,
+        text : yValue,
+        textposition: 'outside',
+        type: 'bar',
+        name: '매출액',
+        marker: {
+          color: 'rgba(106,121,227,.8)'
+        }
+      };
+      
+      var trace2 = {
+        x: xData,
+        y: yValue2,
+        text:yValue2,
+        textposition: 'outside',
+        type: 'bar',
+        name: '미수금',
+        marker: {
+          color: 'rgba(106,121,227,.4)'
+        }
+      };
+      
+      var data = [trace1, trace2];
+      
+      var layout = {
+        title: '매출액/미수금(년) [단위: 만]',
+        
+        legend: {"orientation": "h", /* y: -0.3, */
+        bgcolor: 'rgba(255, 255, 255, 0)',
+        bordercolor: 'rgba(255, 255, 255, 0)'},
+        barmode: 'group',
+        bargap: 0.2,
+        bargroupgap: 0.15,
+        //annotations: [],
+        xaxis: {zeroline: false,},
+        
+        yaxis: {
+          zeroline: false,
+          showline: false,
+          showgrid: true,
+          range: [-10, 150]
+        },
+        config: { responsive: true },
+        height: 372,
+        width: 658
+      };
+      /* for ( var i = 0 ; i < 6 ; i++ ) {
+        var result = {
+          x: xData[i],
+          y: yValue3[i],
+          text: textList[i],
+          font: {
+            family: 'Arial',
+            size: 14,
+            color: 'black'
+          },
+          showarrow: false
+        }; 
+        layout.annotations.push(result);
+      }  */
+      Plotly.newPlot('annualSalesBar', data, layout, {staticPlot: true});
+    }
+    //해당 연도를 제외한 최근 3년간 분기별 매출액 그래프 표기 (단위 만원)
+    function drawQuarterSalesBar() {
+      var xData = ['2018년<br>1분기', '2018년<br>2분기', '2018년<br>3분기', '2018년<br>4분기', 
+                    '2019년<br>1분기', '2019년<br>2분기', '2019년<br>3분기', '2019년<br>4분기',
+                    '2020년<br>1분기', '2020년<br>2분기', '2020년<br>3분기', '2020년<br>4분기'
+                  ];
+      var textList = ['34', '38', '42', '54', '41', '47', '59', '71', '89', '53', '42', '65'];
+      var yData = [20, 20, 20, 30, 20, 20, 30, 30, 40, 30, 20, 40];
+      var trace1 = {
+        x: xData,
+        text: textList,
+        textposition: 'outside',
+        y: [34, 38, 42, 54, 41, 47, 59, 71, 89, 53, 42, 65],
+        type: 'bar',
+        name: '매출액',
+        marker: {
+          color: 'rgba(106,121,227,.8)',
+          //opacity: 0.7,
+        }
+      };
+      
+      
+      var data = [trace1];
+      
+      var layout = {
+        title: '매출액(분기) [단위: 만]',
+        legend: {"orientation": "h", /* y: -0.3, */
+          bgcolor: 'rgba(255, 255, 255, 0)',
+          bordercolor: 'rgba(255, 255, 255, 0)'},
+        barmode: 'group',
+        bargap: 0.2,
+        bargroupgap: 0.35,
+        //barmode: 'group',
+        showlegend: false,
+        annotations: [],
+        height: 372,
+        width: 700,
+        xaxis: {zeroline: false, tickangle: 0, },
+        
+        yaxis: {
+          zeroline: false,
+          showline: false,
+          showgrid: true,
+          range: [-10, 100]
+        },
+      };
+      /* for ( var i = 0 ; i < 12 ; i++ ) {
+        var result = {
+          x: xData[i],
+          y: yData[i],
+          text: textList[i],
+          font: {
+            family: 'Arial',
+            size: 14,
+            color: 'black'
+          },
+          showarrow: false
+        };
+        layout.annotations.push(result);
+      } */
+      Plotly.newPlot('quaterSalesBar', data, layout, {staticPlot: true});
+    }
+
+  function graph1() {
+    var xValue = [' 2021년 01월 ', ' 2021년 02월 ', ' 2021년 03월 ', ' 2021년 04월 '];
+
+    var yValue = [4.5, 2.3, 3.6, 5.3];
+    var yValue2 = [2.1, 4.8, 1.9, 5.7];
+    var yValue3 = [2, 2, 3.1, 4.3];
+
+
+    var trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      name: '매출',
+      marker: {
+        color: 'rgba(106,121,227,.8)',
+        
+      },
+      //hovertemplate : none
+    };
+
+    var trace2 = {
+      x: xValue,
+      y: yValue2,
+      type: 'bar',
+      name : '계약수',
+      marker: {
+        color: 'rgba(106,121,227,.4)',
+        
+      }
+    };
+
+    var trace3 = {
+      x: xValue,
+      y: yValue3,
+      //type: 'scatter',
+      name : '등록수',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgb(198,231,255,1)',
+        size: 10
+      },
+      line: {
+        color: 'rgba(198,231,255,1)',
+        width: 4,
+      },
+      /* hovertemplate:    '%{x} <br>' + 
+                        ' <i>Price</i>: $%{y:.2f}' +
+                        '<br><b>X</b>: %{x}<br>' +
+                        '<b>%{text}</b>',
+      text: ["Text A", "Text B", "Text C", "Text D", "Text E"], */
+    };
+
+    var data = [trace1,trace2, trace3, ];
+
+    var layout = {
+      title: '고객사월별실적',
+      //barmode: 'group',
+      showlegend: true,
+      
+      hovermode: "x unified",
+      
+      //hoverlabel: { bgcolor: "#FFF" },
+      /* hoverlable : 
+        {bgcolor : "#496B85",
+          font : {size : 16, color : '#ffffff', family : "SpoqaHanSansNeo"},
+        }, */
+      legend: {"orientation": "h", /* y: -0.3, */
+      bgcolor: 'rgba(255, 255, 255, 0)',
+      bordercolor: 'rgba(255, 255, 255, 0)'},
+      barmode: 'group',
+      bargap: 0.2,
+      bargroupgap: 0.15,
+      xaxis: {zeroline: false,},
+      
+      yaxis: {
+        zeroline: false,
+        showline: false,
+        showgrid: true,
+        range: [-0.5, 6]
+      },
+      config: { responsive: true },
+      height: 372,
+      width: 658
+    };
+
+  
+
+    Plotly.newPlot('1', data, layout, /* {staticPlot: true} */);
+
+  }
+
+  function graph2() {
+    var xValue = [' A지역본부 ', ' B지역본부 ', ' C지역본부 ', ' D지역본부 '];
+
+    var yValue = [4.5, 2.3, 3.6, 4.3];
+    var yValue2 = [4.1, 4.8, 1.9, 3.7];
+    var yValue3 = [2, 2.2, 3.1, 5.3];
+
+
+    var trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      name: '매출',
+      marker: {
+        color: 'rgba(106,121,227,.8)',
+        
+      }
+    };
+
+    var trace2 = {
+      x: xValue,
+      y: yValue2,
+      type: 'bar',
+      name : '계약수',
+      marker: {
+        color: 'rgba(106,121,227,.4)',
+        
+      }
+    };
+
+    var trace3 = {
+      x: xValue,
+      y: yValue3,
+      //type: 'scatter',
+      name : '영업일지 등록수',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgb(198,231,255,1)',
+        size: 10
+      },
+      line: {
+        color: 'rgba(198,231,255,1)',
+        width: 4,
+      },
+    };
+
+    var data = [trace1,trace2, trace3];
+
+    var layout = {
+      title: '지역본부별 영업실적 및 영업일지 등록 현황',
+      barmode: 'group',
+      showlegend: true,
+      
+      hovermode: "x unified",
+      
+      //hoverlabel: { bgcolor: "#FFF" },
+      /* hoverlable : 
+        {bgcolor : "#496B85",
+          font : {size : 16, color : '#ffffff', family : "SpoqaHanSansNeo"},
+        }, */
+      legend: {"orientation": "h", /* y: -0.3, */
+      bgcolor: 'rgba(255, 255, 255, 0)',
+      bordercolor: 'rgba(255, 255, 255, 0)'},
+      //barmode: 'group',
+      bargap: 0.2,
+      bargroupgap: 0.15,
+      xaxis: {zeroline: false,},
+      
+      yaxis: {
+        zeroline: false,
+        showline: false,
+        showgrid: true,
+        range: [-0.5, 6]
+      },
+      width: 1348,
+      height: 372
+    };
+
+    Plotly.newPlot('3', data, layout, {staticPlot: true});
+
+  }
+
+  function graph3() {
+    var xValue = [' 2021년 01월 ', ' 2021년 02월 ', ' 2021년 03월 ', ' 2021년 04월 ', ' 2021년 05월 '];
+
+    var yValue = [4.5, 4.3, 2.6, 3.3, 4.7];
+    var yValue2 = [2.1, 2.8, 2.9, 4.7, 2.8];
+    //var yValue3 = [2, 2, 3.1, 4.3];
+
+
+    var trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      name: '고객사',
+      marker: {
+        color: 'rgba(106,121,227,.8)',
+        
+      }
+    };
+
+    var trace2 = {
+      x: xValue,
+      y: yValue2,
+      type: 'bar',
+      name : '고객',
+      marker: {
+        color: 'rgba(106,121,227,.4)',
+        
+      }
+    };
+    var data = [trace1,trace2];
+
+    var layout = {
+      //barmode: 'group',
+      showlegend: true,
+      
+      //hovermode: "x unified",
+      
+      //hoverlabel: { bgcolor: "#FFF" },
+      /* hoverlable : 
+        {bgcolor : "#496B85",
+          font : {size : 16, color : '#ffffff', family : "SpoqaHanSansNeo"},
+        }, */
+      title : '월간 고객사/고객 등록현황',
+      legend: {"orientation": "h", /* y: -0.3, */
+      bgcolor: 'rgba(255, 255, 255, 0)',
+      bordercolor: 'rgba(255, 255, 255, 0)'},
+      barmode: 'group',
+      bargap: 0.2,
+      bargroupgap: 0.15,
+      xaxis: {zeroline: false, showline: false},
+      
+      yaxis: {
+        zeroline: false,
+        showline: false,
+        showgrid: true,
+        range: [-0.5, 6]
+      },
+      height: 372,
+      width: 658
+    };
+
+    Plotly.newPlot('2', data, layout, {staticPlot: true});
+
+  }
+
+  function graph4() {
+    var xValue = [' 2021년 01월 ', ' 2021년 02월 ', ' 2021년 03월 ', ' 2021년 04월 '];
+
+    var yValue = [4.5, 4.3, 5.1, 5.3];
+    var yValue2 = [2.1, 4.8, 1.9, 5.7];
+    var yValue3 = [2, 3.7, 5.1, 4.3];
+    var yValue4 = [1.7, 0.7, 2.1, 3.3];
+
+
+    var trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      name: '건수',
+      marker: {
+        color: 'rgba(106,121,227,.8)',
+        
+      }
+    };
+
+    var trace2 = {
+      x: xValue,
+      y: yValue2,
+      //type: 'scatter',
+      name : '오픈',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgba(198,231,255,1.0)',
+        size: 10,
+      },
+      line: {
+        color: 'rgba(198,231,255,1.0)',
+        width: 4,
+      },
+    };
+
+    var trace3 = {
+      x: xValue,
+      y: yValue3,
+      //type: 'scatter',
+      name : '클릭',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgba(204,217,173,1.0)',
+        size: 10,
+      },
+      line: {
+        color: 'rgba(204,217,173,1.0)',
+        width: 4,
+      }
+    };
+
+    var trace4 = {
+      x: xValue,
+      y: yValue4,
+      //type: 'scatter',
+      name : '수신거부',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgba(217,179,140,0.7)',
+        size: 10,
+      },
+      line: {
+        color: 'rgba(217,179,140,0.7)',
+        width: 4,
+      }
+    };
+
+    var data = [trace1,trace2, trace3, trace4];
+
+    var layout = {
+      showlegend: true,
+      title: '캠페인 월별현황 (Email)',
+      legend: {"orientation": "h", /* y: -0.3, */
+      bgcolor: 'rgba(255, 255, 255, 0)',
+      bordercolor: 'rgba(255, 255, 255, 0)'},
+      barmode: 'group',
+      bargap: 0.2,
+      bargroupgap: 0.15,
+      xaxis: {zeroline: false,},
+      
+      yaxis: {
+        zeroline: false,
+        showline: false,
+        showgrid: true,
+        range: [-0.5, 6]
+      },
+      config: { responsive: true },
+      height: 372,
+      width: 658
+    };
+
+    Plotly.newPlot('4', data, layout, {staticPlot: true});
+
+  }
+
+  function graph5() {
+    var xValue = [' 2021년 01월 ', ' 2021년 02월 ', ' 2021년 03월 ', ' 2021년 04월 '];
+
+    var yValue = [4.5, 4.3, 5.1, 5.3];
+    var yValue2 = [2.1, 4.8, 1.9, 5.7];
+    var yValue3 = [2, 3.7, 5.1, 4.3];
+    //var yValue4 = [1.7, 0.7, 2.1, 3.3];
+
+
+    var trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      name: '건수',
+      marker: {
+        color: 'rgba(106,121,227,.8)',
+        
+      }
+    };
+
+    var trace2 = {
+      x: xValue,
+      y: yValue2,
+      //type: 'scatter',
+      //mode : 'lines',
+      name : '성공',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgba(198,231,255,1.0)',
+        size: 10,
+      },
+      line: {
+        color: 'rgba(198,231,255,1.0)',
+        width: 4,
+      }
+    };
+
+    var trace3 = {
+      x: xValue,
+      y: yValue3,
+      //type: '수신거부',
+      name : '클릭',
+      mode : 'lines+markers',
+      marker: {
+        color: 'rgba(204,217,173,1.0)',
+        size: 10,
+      },
+      line: {
+        color: 'rgba(204,217,173,1.0)',
+        width: 4,
+      }
+      
+    };
+
+
+    var data = [trace1,trace2, trace3];
+
+    var layout = {
+      //title: '고객사월별실적'
+      
+      showlegend: true,
+      title: '캠페인 월별현황 (SMS)',
+      legend: {"orientation": "h", /* y: -0.3, */
+      bgcolor: 'rgba(255, 255, 255, 0)',
+      bordercolor: 'rgba(255, 255, 255, 0)'},
+      /* barmode: 'group', */
+      //bargap: 0.2,
+      bargroupgap: 0.18,
+      xaxis: {zeroline: false,},
+      
+      yaxis: {
+        zeroline: false,
+        showline: false,
+        showgrid: true,
+        range: [-0.5, 6]
+      },
+      config: { responsive: true },
+      height: 372,
+      width: 658
+    };
+
+    Plotly.newPlot('5', data, layout, {staticPlot: true});
+
+  }
+</script>
+</html>
+
+

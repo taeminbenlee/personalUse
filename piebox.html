@@ -1,0 +1,182 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src='https://cdn.plot.ly/plotly-2.3.1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+<style>
+  #div1:hover{
+    box-shadow: 10px 10px 10px rgba(33,33,33,.2);
+    border-color: rgb(162, 223, 144); 
+  }
+  #div2:hover{
+    box-shadow: 10px 10px 10px rgba(33,33,33,.2);
+    border-color: rgb(162, 223, 144); 
+  }
+  #div3:hover{
+    box-shadow: 10px 10px 10px rgba(33,33,33,.2);
+    border-color: rgb(162, 223, 144); 
+  }
+  #div4:hover{
+    box-shadow: 10px 10px 10px rgba(33,33,33,.2);
+    border-color: rgb(162, 223, 144); 
+  }
+  .chart{
+    padding: 10px;
+    border-radius: 15px;
+    /* border-style: solid; */
+    margin: 10px;
+    /* text-align: center; */
+  }
+  .chart:hover{
+    box-shadow: 1px 1px 15px 7px rgba(33,33,33,.2);
+  }
+  .chartTitle{
+    text-align: center;
+  }
+  .spanTooltip:hover{
+    color:rgb(147, 132, 214);
+    cursor: pointer;
+  }
+  .pt-page-moveFromLeft {
+	-webkit-animation: moveFromLeft .6s ease both;
+	animation: moveFromLeft .6s ease both;
+  }
+  @-webkit-keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); }
+  }
+  @keyframes moveFromLeft {
+    from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+  }
+  .tooltipInfo {
+    background-color: rgb(176, 167, 218, .3);
+    /* display: none; */
+    padding: 15px;
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+    /* position: absolute; */
+    width: 100%;
+  }
+  /* .ptext{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+  } */
+</style>
+
+
+<div class="container">
+  <div class="col-lg-12" style="text-align: center;">
+    <h1 class="display-2">등급별구매패턴</h1>
+  </div>
+  <div class="row" style="text-align: center; margin-top: 100px;">
+    <div class="col-lg-5" id="div1" style="padding: 10px; border-radius: 35px; border-style: solid;">
+      <div id="pieChart"></div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+          <!-- second row -->
+  <div class="row" style="margin-bottom: 15px;">
+    <!-- orderCount -->
+    <div class="col-sm-5 chart" id="orderCount">
+      <h5 class="mt-4 pd-20" style="text-align: center;">광역도시별 주문건수</h5>
+      <div id="orderCountDiv"></div>
+      <br>
+      <!-- <span id="orderCountDesc" class="spanTooltip"><i class="far fa-question-circle">차트설명</i></span> -->
+      <div class="tooltipInfo" id="orderCountDescTooltip">
+        <p class="ptext">
+          - 광역도시별 총 주문건수를 Bar 그래프로 표현합니다. <br>
+          - 차트 좌측의 해당 도/시 label을 클릭하여 차트에서 제외 할 수 있습니다. <br>
+          - 차트상단의 'auto scale'을 클릭하여 사이즈 자동조정을 할 수 있습니다.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <!-- orderPayment -->
+    <div class="col-sm-5 chart" id="orderPayment">
+      <h5 class="mt-4 pd-20" style="text-align: center;">광역도시별 매출현황 (단위: 만)</h5>
+      <div id="orderPaymentDiv"></div>
+      <br>
+      <!-- <span id="orderPaymentDesc" class="spanTooltip"><i class="far fa-question-circle">차트설명</i></span> -->
+      <div class="tooltipInfo" id="orderPaymentDescTooltip">
+        <p class="ptext">
+          - 광역도시별 매출현황을 Box-Plot으로 표현합니다. <br>
+          - 차트 좌측의 해당 도/시 label을 클릭하여 차트에서 제외 할 수 있습니다. <br>
+          - 차트상단의 'auto scale'을 클릭하여 사이즈 자동조정을 할 수 있습니다. <br>
+          - 해당 차트의 박스는 데이터의 25%에서 75%를 의미합니다. <br>
+          - 해당 차트의 박스 영역 밖의 점은 통계적 이상치를 의미합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+draw();
+function draw() {
+  drawPieChart();
+  orderCountBarGraph();
+  
+}
+
+function drawPieChart() {
+  var colors = ['d1e68c', 'f29f9f', 'fbc691', 'bcb8e3', '70d6ff'];
+  var data = [{
+    type: "pie",
+    values: [80,90,150,160,280],
+    labels: [0,1,2,3,4],
+    textinfo: "percent",
+    insidetextorientation: "outside",
+    marker: {
+      colors: colors
+    },
+    pull: .05
+  }];
+  var layout = {
+    title: "등급별 매출기여도",
+    font: {size: 14},
+    height: document.getElementById('pieChart').clientHeight,
+    width: document.getElementById('pieChart').clientWidth
+
+  };
+  var config = {responsive: true};
+  Plotly.newPlot('pieChart', data, layout, config);
+}
+
+
+
+
+/* 광역도시별 주문건수 barchart horizontal */
+function orderCountBarGraph() {
+  var nameLocations2 = ['강원도', '경기도', '경상남도', '경상북도', '광주광역시', '대구광역시', '대전광역시', '부산광역시',
+      '서울특별시', '세종특별자치시', '울산광역시', '인천광역시', '전라남도', '전라북도', '제주특별자치도',
+      '충청남도', '충청북도'];
+  var customerOrderCount = [50,60,70,80,90,10,50,60,44,30,22,11,44,55,66,77];
+  var data = [];
+  var result = {};
+  for(i=0; i < nameLocations2.length; i++) {
+    result = {
+      type: 'bar',
+      x: [customerOrderCount[i]],
+      y: [nameLocations2[i]],
+      orientation: 'h',
+      name: nameLocations2[i]
+    };
+    data.push(result);
+  }
+
+  var layout = {
+    height: document.getElementById('orderPaymentDiv').clientHeight,
+    width: document.getElementById('orderPaymentDiv').clientWidth
+  };
+  Plotly.newPlot('orderPaymentDiv', data, layout);
+}
+</script>
